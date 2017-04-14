@@ -16,7 +16,8 @@ inquirer.prompt([{
 		chooser(answer);		
 });
 
-var basicCards = []
+var basicCards = [];
+var clozeCards = [];
 var loop = 1;
 
 // var NewBasicCard = new BasicCard();
@@ -28,7 +29,8 @@ function chooser(choice){
 		getBasicCardData();
 		
 	} else if(choice === "cloze"){
-		console.log("Follow me down the cloze path");
+		// console.log("Follow me down the cloze path");
+		getClozeCardData();
 	}
 }
 
@@ -59,7 +61,7 @@ function getBasicCardData(){
 			// Create a new instance of a basic card and push it to 
 			var NewBasicCard = new BasicCard(front,back);
 			basicCards.push(NewBasicCard);
-			console.log("This is the cards array " + basicCards);
+			console.log("This is the basicCards array " + basicCards);
 			// console.log("The front of card number " + loop + " says: " + basicCards[loop-1].front);
 			// console.log("The back of card number " + loop + " says: " + basicCards[loop-1].back);
 			loop++;
@@ -74,29 +76,30 @@ function getBasicCardData(){
 // Use that information in a quiz 
 // Count correct and incorrect answers 
 
-// function getClozeCardData(){
-// 	if (loop <=10){
-// 		inquirer.prompt([{
-// 			name: "question",
-// 			message: "Insert a fact for the front of card number " + loop + "." 
-// 		},{ 
-// 			name: "correctAnswer",
-// 			message: "Enter the answer to the question"
+ function getClozeCardData(){
+ 	if (loop <=10){
+ 		inquirer.prompt([{
+ 			name: "fact",
+ 			message: "Insert a fact for the front of card number " + loop + "." 
+ 		},{ 
+			name: "cloze",
+			message: "Hide some information"
 
-// 		}]).then(function(answers){
-// 			front = answers.question;
-// 			back = answers.correctAnswer; 
-// 			// console.log("The front says: " + front);
-// 			// console.log("The back says: " + back);
+		}]).then(function(answers){
+			text = answers.fact;
+			clozeDelete = answers.cloze; 
+			// console.log("The front says: " + front);
+			// console.log("The back says: " + back);
 
-// 			// call the basic card constructor function to create a new basic card
-// 			var NewBasicCard = new BasicCard(front,back);
-// 			cards.push(NewBasicCard);
-// 			console.log("This is the cards array " + cards);
-// 			console.log("The front of the card says: " + cards[0].front);
-// 			console.log("The back of the card says: " + cards[0].back);
-// 			loop++;
-// 			getBasicCardData();
-// 		})
-// 	}
-// }
+			// call the cloze card constructor function to create a new cloze card
+			var NewClozeCard = new ClozeCard(text, clozeDelete);
+			clozeCards.push(NewClozeCard);
+			console.log("This is the clozeCards array " + clozeCards);
+			NewClozeCard.cloze();
+			NewClozeCard.partial();
+			NewClozeCard.fullText();
+			loop++;
+			getClozeCardData();
+		})
+	}
+}

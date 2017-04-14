@@ -31,29 +31,29 @@ function ClozeCard(text, clozeDelete){
 	// a method that contains or returns only the cloze-deleted portion of the text
 	this.cloze = function(){
 		var cloze= clozeDelete;
-		console.log(cloze);
+		console.log("This is the cloze: " + cloze);
 	}; 
 
 	// a method that contains or returns only the partial text
 	this.partial = function(){
 		var partial = text.replace(clozeDelete, "...");
-		console.log(partial);
+		console.log("This is partial: " + partial);
 	};
 
 	// method that contains or returns only the full text.
 	this.fullText = function(){
 		var fullText = text;
-		console.log(fullText);
+		console.log("This is the full text: " + fullText);
 	}
 
 }
 
 
-var firstPresidentCloze = new ClozeCard("George Washington was the first president of the United States.", "George Washington");
+// var firstPresidentCloze = new ClozeCard("George Washington was the first president of the United States.", "George Washington");
 
-firstPresidentCloze.cloze();
-firstPresidentCloze.partial();
-firstPresidentCloze.fullText();
+// firstPresidentCloze.cloze();
+// firstPresidentCloze.partial();
+// firstPresidentCloze.fullText();
 
 
 module.exports = ClozeCard; 
