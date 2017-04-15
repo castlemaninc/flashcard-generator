@@ -1,3 +1,7 @@
+var inquirer = require("inquirer");
+
+var clozeCards = [];
+var loop = 1;
 // Create a  ClozeCard  constructor. It should accept  text  and  cloze  arguments.
 
 
@@ -44,7 +48,34 @@ function ClozeCard(text, clozeDelete){
 	this.fullText = function(){
 		var fullText = text;
 		console.log("This is the full text: " + fullText);
+	};
+
+	this.getData = function(){
+		if (loop <=10){
+ 		inquirer.prompt([{
+ 			name: "fact",
+ 			message: "Insert a fact for the front of card number " + loop + "." 
+ 		},{ 
+			name: "cloze",
+			message: "Hide some information"
+
+		}]).then(function(answers){
+			fact = answers.fact;
+			cloze = answers.cloze; 
+			
+			// call the cloze card constructor function to create a new cloze card
+			var newClozeCard = new ClozeCard(fact, cloze);
+			clozeCards.push(newClozeCard);
+			console.log("This is the clozeCards array " + clozeCards);
+			// newClozeCard.cloze();
+			// newClozeCard.partial();
+			// newClozeCard.fullText();
+			loop++;
+			newClozeCard.getData();
+		});
 	}
+	
+	};
 
 }
 
