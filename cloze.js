@@ -1,33 +1,15 @@
+// var fs = require("fs");
 var inquirer = require("inquirer");
 
 var clozeCards = [];
 var loop = 1;
-// Create a  ClozeCard  constructor. It should accept  text  and  cloze  arguments.
 
+// Cloze 
+// Take in an entire sentence 
+// Ask the person to delete a section called the cloze-delete 
+// Store this information in an array called clozeCards
 
-// ********************* Example *******************************
-
-// var firstPresidentCloze = new ClozeCard("George Washington was the first president of the United States.", "George Washington");
-
-// ClozeCard  should have a property or method that contains or returns only the cloze-deleted portion of the text.
-// "George Washington"
-// console.log(firstPresidentCloze.cloze); 
-
-// // ClozeCard  should have a property or method that contains or returns only the partial text.
-// // " ... was the first president of the United States.
-// console.log(firstPresidentCloze.partial); 
-
-// // ClozeCard  should have a property or method that contains or returns only the full text.
-// // "George Washington was the first president of the United States.
-// console.log(firstPresidentCloze.fullText); 
-
-// // ClozeCard  should throw or log an error when the cloze deletion does not appear in the input text.
-// // Should throw or log an error because "oops" doesn't appear in "This doesn't work"
-// var brokenCloze("This doesn't work", "oops");
-
-// Use prototypes to attach these methods, wherever possible.
-
-// ********************* End of Example *******************************
+// A ClozeCard  constructor that accetps text  and  cloze  arguments.
 
 
 function ClozeCard(text, clozeDelete){
@@ -50,14 +32,14 @@ function ClozeCard(text, clozeDelete){
 		console.log("This is the full text: " + fullText);
 	};
 
-	this.getData = function(){
+	this.getUserInput = function(){
 		if (loop <=10){
  		inquirer.prompt([{
  			name: "fact",
- 			message: "Insert a fact for the front of card number " + loop + "." 
+ 			message: "Enter a factual statement for the front of card number " + loop + "." 
  		},{ 
 			name: "cloze",
-			message: "Hide some information"
+			message: "Enter a section of text within that statement, that you would like to hide."
 
 		}]).then(function(answers){
 			fact = answers.fact;
@@ -66,25 +48,18 @@ function ClozeCard(text, clozeDelete){
 			// call the cloze card constructor function to create a new cloze card
 			var newClozeCard = new ClozeCard(fact, cloze);
 			clozeCards.push(newClozeCard);
-			console.log("This is the clozeCards array " + clozeCards);
+			// console.log("This is the clozeCards array " + clozeCards);
 			// newClozeCard.cloze();
 			// newClozeCard.partial();
 			// newClozeCard.fullText();
 			loop++;
-			newClozeCard.getData();
+			newClozeCard.getUserInput();
 		});
 	}
 	
 	};
 
 }
-
-
-// var firstPresidentCloze = new ClozeCard("George Washington was the first president of the United States.", "George Washington");
-
-// firstPresidentCloze.cloze();
-// firstPresidentCloze.partial();
-// firstPresidentCloze.fullText();
 
 
 module.exports = ClozeCard; 
